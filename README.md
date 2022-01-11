@@ -14,11 +14,11 @@ $ pip install CovidTracker
 
 ## Contributing
 
-Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
+We welcome and recognize all contributions. Please see contributing guidelines in the Contributing document. This repository is currently maintained by 
 
 ## License
 
-`CovidTracker` was created by Group 24. It is licensed under the terms of the MIT license.
+`CovidTracker` was created by Group 28. It is licensed under the terms of the MIT license.
 
 ## Credits
 
