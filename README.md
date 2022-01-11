@@ -14,7 +14,12 @@ $ pip install CovidTracker
 
 ## Contributing
 
-We welcome and recognize all contributions. Please see contributing guidelines in the Contributing document. This repository is currently maintained by 
+We welcome and recognize all contributions. Please see contributing guidelines in the Contributing document. This repository is currently maintained by
+
+* Cuthbert Chow (@cuthchow)
+* Tianwei Wang (@Davidwang11)
+* Siqi Tao (@SiqiTao)
+* Jessie Wong (@jessie14)
 
 ## License
 
