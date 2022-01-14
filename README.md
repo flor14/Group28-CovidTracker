@@ -1,21 +1,30 @@
 # CovidTracker
 
-Provides basic data cleaning, wrangling and plotting of Covid tracking data in Canada
+Provides basic data cleaning, wrangling and plotting of Covid tracking data in Canada.
 
-## Features 
-The CovidTracker package is designed for the easy retrieval and analysis of data pertaining to Covid trends in Canada, including information about cases, vaccinations and testing. The package serves as a wrapper for the opencovid.ca API, and provides additional helper functions for visualising the data, either as a time series or in the form of a map. 
+## Functions
+The CovidTracker package is designed for the easy retrieval and analysis of data pertaining to Covid trends in Canada, including information about cases, vaccinations and testing. The package serves as a wrapper for the opencovid.ca [API](Ihttps://opencovid.ca/api/), and provides additional helper functions for visualising the data, either as a time series or in the form of a map. 
 
-#### `get_covid_data()`
-Retrieve cleaned and formatted data of specified type and within (optionally) provided time ranges and locations
+* #### `get_covid_data()`
+    Retrieve cleaned and formatted data of specified type and within (optionally) provided time ranges and locations
 
-#### `plot_time_series()`
-Function for plotting time series trends in Covid data, including options for trendlines and smoothing
+* #### `plot_time_series()`
+    Function for plotting time series trends in Covid data, including options for trendlines and smoothing
 
-#### `calculate_stat_summary()`
-Function for returning key statistical information about Covid data, such as long run trends and comparisons between provinces<br>
+* #### `calculate_stat_summary()`
+    Function for returning key statistical information about Covid data, such as long run trends and comparisons between provinces<br>
 
-#### `plot_geographical()`
-Function for plotting chloropleth maps with Covid data 
+* #### `plot_geographical()`
+    Function for plotting chloropleth maps with Covid data 
+    
+
+## Similar Packages    
+There are currently no other Python packages available that can perform the same set of data retrieval and analysis functionalities as CovidTracker. There are several packages that have similar functionality, but are most are tailored either towards covid data retrieval or data visualization. The packages designed for covid data retrieval also do not use the same data source as CovidTracker. Some examples of related Python packages useful for Covid data retrieval and data visualizations include:
+* [covid19dh](https://pypi.org/project/covid19dh/) - For Covid data retrieval
+* [covid](https://pypi.org/project/covid/)- For Covid data retrieval
+* [folium](https://pypi.org/project/folium/) - For data visualizations
+* [plotly](https://pypi.org/project/plotly/) - For data visualizations
+
 
 ## Installation
 
