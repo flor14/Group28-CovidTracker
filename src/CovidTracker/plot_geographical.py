@@ -1,13 +1,13 @@
-def plot_geographical(input_file):
+def plot_geographical(df):
     """Creates a chloropleth map showing the number 
        of covid cases in each province of Canada
 
     Parameters
     ----------
-    input_file : str
-        Path to data file.
+    df : pandas.DataFrame
+        Pandas dataframe containing covid data to plot.
 
     Examples
     --------
-    >>> plot_geographical("data.csv")
+    >>> plot_geographical(covid_df)
     """
