@@ -29,7 +29,8 @@ def get_covid_data(data_type='cases', loc='', date=''):
     if data_type not in stat_types:
         raise ValueError("Stat type must be within pre-defined options.\n Choose from: ['cases', 'mortality', 'recovered', 'testing', 'active', 'dvaccine', 'avaccine', 'cvaccine']")
 
-    pattern = '(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}|$^'
+    pattern = r'(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}|$^'
+
     if not re.match(pattern, date):
         raise ValueError("Input date must follow DD-MM-YYY format")
 
