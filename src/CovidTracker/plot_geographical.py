@@ -1,9 +1,10 @@
 from CovidTracker.get_covid_data import get_covid_data 
 import geopandas as gpd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import re
 import pandas as pd
 import git 
+
 
 def plot_geographical(covid_df,metric):
     """Creates a chloropleth map showing the number 
@@ -65,17 +66,17 @@ def plot_geographical(covid_df,metric):
         covid_df = covid_df.groupby('province').sum()
         merged = map_df.set_index('PRENAME').join(covid_df)
 
-    # plot Cloropleth map
-    fig, ax = plt.pyplot.subplots(1, figsize=(10, 6))
-
-    plt.pyplot.close()
+    # Plot Cloropleth map
+    fig, ax = plt.subplots(1, figsize=(10, 6))
+    
+    plt.close()
     merged.plot(column=metric, cmap='Reds', linewidth=0.8, ax=ax, edgecolor='0.8')
     ax.axis('off')
 
     vmin = merged[metric].min()
     vmax = merged[metric].max()
 
-    sm = plt.pyplot.cm.ScalarMappable(cmap='Reds', norm=plt.pyplot.Normalize(vmin=vmin, vmax=vmax))
+    sm = plt.cm.ScalarMappable(cmap='Reds', norm=plt.Normalize(vmin=vmin, vmax=vmax))
     sm._A = []
     cbar = fig.colorbar(sm)
     cbar.set_label(f'Number of {metric.capitalize().replace("_", " ")}',labelpad=20)
