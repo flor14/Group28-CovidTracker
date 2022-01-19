@@ -3,6 +3,7 @@ import geopandas as gpd
 import matplotlib as plt
 import re
 import pandas as pd
+import git 
 
 def plot_geographical(covid_df,metric):
     """Creates a chloropleth map showing the number 
@@ -42,7 +43,9 @@ def plot_geographical(covid_df,metric):
         raise ValueError("Please choose a different metric with non null values.")
 
     # read in and tidy geodataframe containing Canada geography data
-    fp = "../../Resources/Chloropleth_Shape_Files/lpr_000b16a_e.shp"
+    git_repo = git.Repo('.', search_parent_directories=True)
+    git_root = git_repo.git.rev_parse("--show-toplevel")
+    fp = git_root + ("/Resources/Chloropleth_Shape_Files/lpr_000b16a_e.shp")
     map_df = gpd.read_file(fp)[['PRENAME','geometry']]
     map_df = map_df.replace({'PRENAME' : {'Newfoundland and Labrador' : 'NL', 'Prince Edward Island' : 'PEI', 'British Columbia' : 'BC' ,'Northwest Territories' :'NWT'}})
 
