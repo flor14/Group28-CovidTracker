@@ -1,6 +1,6 @@
 from CovidTracker.get_covid_data import get_covid_data 
 import geopandas as gpd
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import re
 import pandas as pd
 
@@ -27,16 +27,16 @@ def plot_geographical(covid_df,metric):
     """
 
     if type(metric) != str:
-        raise ValueError("Please input metric as a string.")
+        raise Exception("The value of the argument 'text_col' must be type of string")
 
-    if type(covid_df) != pd.core.frame.DataFrame:
-        raise ValueError("Please input covid_df as a Pandas Dataframe.")
+    if type(covid_df) != pd.DataFrame:
+        raise Exception("The value of the argument 'df' must be type of dataframe.")
 
     if metric not in covid_df.columns:
-        raise ValueError(f"Chosen metric must be a column in the dataframe.\nPlease choose one from: {list(covid_df.columns)}")
+        raise Exception(f"Chosen metric must be a column in the dataframe.\nPlease choose one from: {list(covid_df.columns)}")
 
     if re.match(r'^date', metric) or re.match(r'^province', metric) :
-        raise ValueError("Chosen metric must not be date or province column.")
+        raise Exception("Chosen metric must not be date or province column.")
 
     if metric == 'testing_info':
         raise ValueError("Please choose a metric with non null values.")
@@ -63,16 +63,16 @@ def plot_geographical(covid_df,metric):
         merged = map_df.set_index('PRENAME').join(covid_df)
 
     # plot Cloropleth map
-    fig, ax = plt.subplots(1, figsize=(10, 6))
+    fig, ax = plt.pyplot.subplots(1, figsize=(10, 6))
 
-    plt.close()
+    plt.pyplot.close()
     merged.plot(column=metric, cmap='Reds', linewidth=0.8, ax=ax, edgecolor='0.8')
     ax.axis('off')
 
     vmin = merged[metric].min()
     vmax = merged[metric].max()
 
-    sm = plt.cm.ScalarMappable(cmap='Reds', norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    sm = plt.pyplot.cm.ScalarMappable(cmap='Reds', norm=plt.pyplot.Normalize(vmin=vmin, vmax=vmax))
     sm._A = []
     cbar = fig.colorbar(sm)
     cbar.set_label(f'Number of {metric.capitalize().replace("_", " ")}',labelpad=20)
