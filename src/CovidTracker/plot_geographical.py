@@ -27,19 +27,19 @@ def plot_geographical(covid_df,metric):
     """
 
     if type(metric) != str:
-        raise Exception("The value of the argument 'text_col' must be type of string")
+        raise Exception("The value of the argument 'metric' must be of type string")
 
     if type(covid_df) != pd.DataFrame:
-        raise Exception("The value of the argument 'df' must be type of dataframe.")
+        raise Exception("The value of the argument 'covid_df' must be of type dataframe.")
 
     if metric not in covid_df.columns:
-        raise Exception(f"Chosen metric must be a column in the dataframe.\nPlease choose one from: {list(covid_df.columns)}")
+        raise ValueError(f"Chosen metric must be a column in the dataframe.\nPlease choose one from: {list(covid_df.columns)}")
 
     if re.match(r'^date', metric) or re.match(r'^province', metric) :
-        raise Exception("Chosen metric must not be date or province column.")
+        raise ValueError("Chosen metric must not be date or province column.")
 
     if metric == 'testing_info':
-        raise ValueError("Please choose a metric with non null values.")
+        raise ValueError("Please choose a different metric with non null values.")
 
     # read in and tidy geodataframe containing Canada geography data
     fp = "../../Resources/Chloropleth_Shape_Files/lpr_000b16a_e.shp"
