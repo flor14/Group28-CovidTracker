@@ -4,8 +4,6 @@ from datetime import datetime, timedelta
 import altair as alt
 import re
 
-alt.data_transformers.enable('data_server')
-
 def plot_ts(df, metric, start=None, end=None):
     """Creates a plot displaying the number of 
        covid cases over time.
