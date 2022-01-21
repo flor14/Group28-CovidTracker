@@ -70,9 +70,9 @@ def plot_ts(df, metric, start=None, end=None):
         if end > max(df[date_col]):
             raise ValueError(f"The ending date must not be after {max(df[date_col])}.")
     
-    data[(data[date_col] >= start) & (data[date_col] <= end)]
+    df[(df[date_col] >= start) & (df[date_col] <= end)]
     
-    plot = alt.Chart(data).mark_line().encode(
+    plot = alt.Chart(df).mark_line().encode(
         x=alt.X(date_col, title='Date', axis=alt.Axis(format='%Y-%b-%e')),
         y = metric
     ).properties(
