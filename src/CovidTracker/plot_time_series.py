@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime, timedelta
 import altair as alt
+import re
 
 alt.data_transformers.enable('data_server')
 
@@ -46,7 +47,7 @@ def plot_ts(df, metric, start=None, end=None):
 
     if ('date' in metric) or ('province' in metric):
         raise ValueError("Chosen metric must not be date or province.")
-
+    
     # Find and convert the date column
     for i in df.columns:
         if 'date' in i:
@@ -59,16 +60,22 @@ def plot_ts(df, metric, start=None, end=None):
     if start is None:
         start = min(df[date_col])
     else:
-        start = pd.to_datetime(start, format = '%Y-%m-%d')
-        if start < min(df[date_col]):
-            raise ValueError(f"The start date must not be before {min(df[date_col])}.")
+        if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start)
+            raise ValueError("Input date must follow YYYY-MM-DD format")
+        else:
+            start = pd.to_datetime(start, format = '%Y-%m-%d')
+            if start < min(df[date_col]):
+                raise ValueError(f"The start date must not be before {min(df[date_col])}.")
         
     if end is None:
         end = max(df[date_col])
     else:
-        end = pd.to_datetime(end, format = '%Y-%m-%d')
-        if end > max(df[date_col]):
-            raise ValueError(f"The ending date must not be after {max(df[date_col])}.")
+        if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end)
+            raise ValueError("Input date must follow YYYY-MM-DD format")
+        else:
+            end = pd.to_datetime(end, format = '%Y-%m-%d')
+            if end > max(df[date_col]):
+                raise ValueError(f"The ending date must not be after {max(df[date_col])}.")
     
     df[(df[date_col] >= start) & (df[date_col] <= end)]
     
