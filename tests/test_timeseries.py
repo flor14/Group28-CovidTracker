@@ -25,7 +25,7 @@ def test_plot_ts():
     assert test_plot.encoding.x.type == 'temporal', "x-axis has wrong data type"
     
     
-def test_plot_ts():
+def test_plot_ts_error():
     """
     Tests if the plot_time_series function raises errors correctly
     
