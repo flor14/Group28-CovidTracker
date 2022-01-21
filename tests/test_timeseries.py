@@ -34,15 +34,30 @@ def test_plot_ts_error():
     None
         The test should pass and no asserts should be displayed.
     """
-    with pytest.raises(ValueError):
-        plot_ts(df = df, metric = 10)
+    with pytest.raises(TypeError):
+        plot_ts(df = df, metric = 10)  
         
-    with pytest.raises(ValueError):
-        plot_ts(df = [1, 2, 3], "testing")
-        
-    with pytest.raises(ValueError):
-        plot_ts(start = '20-12-10')
+    with pytest.raises(TypeError):
+        plot_ts(df = [1, 2, 3], metric = "testing")
+    
+    with pytest.raises(TypeError):
+        plot_ts(df = df, metric = "testing", start = 20200201)
     
     with pytest.raises(ValueError):
-        plot_ts(start = '1900-12-10')
+        plot_ts(df = df, metric = "active_cases")
+        
+    with pytest.raises(ValueError):
+        plot_ts(df = df, metric = "testing_info")
+        
+    with pytest.raises(ValueError):
+        plot_ts(df = df, metric = "testing", start = '20-12-10')
+    
+    with pytest.raises(ValueError):
+        plot_ts(df = df, metric = "testing", start = '1900-12-10')
+        
+    with pytest.raises(ValueError):
+        plot_ts(df = df, metric = "testing", end = '2100-12-10')
+        
+    with pytest.raises(ValueError):
+        plot_ts(df = df, metric = "testing", start = '2021-12-10', end = '2020-12-10')
         
