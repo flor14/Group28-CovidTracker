@@ -65,7 +65,7 @@ def plot_ts(df, metric, start=None, end=None):
         if type(metric) != str:
             raise Exception("The input of the parameter 'start' should be a string")
         else:
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start)
+            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start):
                 raise ValueError("Input date must follow YYYY-MM-DD format")
             else:
                 start = pd.to_datetime(start, format = '%Y-%m-%d')
@@ -78,7 +78,7 @@ def plot_ts(df, metric, start=None, end=None):
         if type(metric) != str:
             raise Exception("The input of the parameter 'end' should be a string")
         else:
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end)
+            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end):
                 raise ValueError("Input date must follow YYYY-MM-DD format")
             else:
                 end = pd.to_datetime(end, format = '%Y-%m-%d')
