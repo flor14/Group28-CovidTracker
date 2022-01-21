@@ -36,8 +36,13 @@ def test_plot_ts_error():
     """
     with pytest.raises(ValueError):
         plot_ts(df = df, metric = 10)
-        plot_ts(df = [1, 2, 3], "testing")
-        plot_ts(start = '20-12-10')
-        plot_ts(start = '1900-12-10')
         
+    with pytest.raises(ValueError):
+        plot_ts(df = [1, 2, 3], "testing")
+        
+    with pytest.raises(ValueError):
+        plot_ts(start = '20-12-10')
+    
+    with pytest.raises(ValueError):
+        plot_ts(start = '1900-12-10')
         
