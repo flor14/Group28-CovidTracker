@@ -3,7 +3,9 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import re
 import pandas as pd
-import git 
+
+import importlib.resources as pkg_resources
+from . import templates 
 
 
 def plot_geographical(covid_df,metric):
@@ -44,9 +46,10 @@ def plot_geographical(covid_df,metric):
         raise ValueError("Please choose a different metric with non null values.")
 
     # read in and tidy geodataframe containing Canada geography data
-    git_repo = git.Repo('.', search_parent_directories=True)
-    git_root = git_repo.git.rev_parse("--show-toplevel")
-    fp = git_root + ("/Resources/Chloropleth_Shape_Files/lpr_000b16a_e.shp")
+    with pkg_resources.path(templates, 'lpr_000b16a_e.shp') as fp:
+        map_df = gpd.read_file(fp)[['PRENAME','geometry']]
+        
+        
     map_df = gpd.read_file(fp)[['PRENAME','geometry']]
     map_df = map_df.replace({'PRENAME' : {'Newfoundland and Labrador' : 'NL', 'Prince Edward Island' : 'PEI', 'British Columbia' : 'BC' ,'Northwest Territories' :'NWT'}})
 
