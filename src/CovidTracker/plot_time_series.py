@@ -40,7 +40,7 @@ def plot_ts(df, metric, start=None, end=None):
         raise Exception("The input of the parameter 'df' should be a dataframe.")
 
     if metric not in df.columns:
-        raise ValueError(f"Cannot find the chosen metric. Please choose one from: {list(covid_df.columns)}")
+        raise ValueError(f"Cannot find the chosen metric. Please choose one from: {list(df.columns)}")
 
     if ('date' in metric) or ('province' in metric):
         raise ValueError("Chosen metric must not be date or province.")
