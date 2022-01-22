@@ -49,6 +49,7 @@ def plot_geographical(covid_df,metric):
     with pkg_resources.path(shape_files, 'lpr_000b16a_e.shp') as fp:
         map_df = gpd.read_file(fp)[['PRENAME','geometry']]
         
+        
     map_df = gpd.read_file(fp)[['PRENAME','geometry']]
     map_df = map_df.replace({'PRENAME' : {'Newfoundland and Labrador' : 'NL', 'Prince Edward Island' : 'PEI', 'British Columbia' : 'BC' ,'Northwest Territories' :'NWT'}})
 
