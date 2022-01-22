@@ -54,34 +54,35 @@ def plot_ts(df, metric, start=None, end=None):
             date_col = i    
     df[date_col] = pd.to_datetime(df[date_col], format = '%d-%m-%Y')
     
-    if pd.to_datetime(start, format = '%Y-%m-%d') >= pd.to_datetime(end, format = '%Y-%m-%d'):
-        raise ValueError("The start date must be before the ending date.")
+    if (start is not None) and (end is not None):
+        if pd.to_datetime(start, format = '%Y-%m-%d') >= pd.to_datetime(end, format = '%Y-%m-%d'):
+            raise ValueError("The start date must be before the ending date.")
+    else:
+        if start is None:
+            start = min(df[date_col])
+        else:
+            if type(start) != str:
+                raise Exception("The input of the parameter 'start' should be a string")
+            else:
+                if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start):
+                    raise ValueError("Input date must follow YYYY-MM-DD format")
+                else:
+                    start = pd.to_datetime(start, format = '%Y-%m-%d')
+                    if start < min(df[date_col]):
+                        raise ValueError(f"The start date must not be before {min(df[date_col])}.")
 
-    if start is None:
-        start = min(df[date_col])
-    else:
-        if type(start) != str:
-            raise Exception("The input of the parameter 'start' should be a string")
+        if end is None:
+            end = max(df[date_col])
         else:
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start):
-                raise ValueError("Input date must follow YYYY-MM-DD format")
+            if type(end) != str:
+                raise Exception("The input of the parameter 'end' should be a string")
             else:
-                start = pd.to_datetime(start, format = '%Y-%m-%d')
-                if start < min(df[date_col]):
-                    raise ValueError(f"The start date must not be before {min(df[date_col])}.")
-        
-    if end is None:
-        end = max(df[date_col])
-    else:
-        if type(end) != str:
-            raise Exception("The input of the parameter 'end' should be a string")
-        else:
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end):
-                raise ValueError("Input date must follow YYYY-MM-DD format")
-            else:
-                end = pd.to_datetime(end, format = '%Y-%m-%d')
-                if end > max(df[date_col]):
-                    raise ValueError(f"The ending date must not be after {max(df[date_col])}.")
+                if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end):
+                    raise ValueError("Input date must follow YYYY-MM-DD format")
+                else:
+                    end = pd.to_datetime(end, format = '%Y-%m-%d')
+                    if end > max(df[date_col]):
+                        raise ValueError(f"The ending date must not be after {max(df[date_col])}.")
 
     df[(df[date_col] >= start) & (df[date_col] <= end)]
     
