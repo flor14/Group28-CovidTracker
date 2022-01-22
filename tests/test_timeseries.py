@@ -4,6 +4,8 @@ from pytest import raises
 import pandas as pd
 import pytest
 
+# Generate test data
+df = get_covid_data("testing")
 
 def test_plot_ts():
     """
@@ -14,8 +16,7 @@ def test_plot_ts():
     None
         The test should pass and no asserts should be displayed.
     """
-    # Generate test data
-    df = get_covid_data("testing")
+    
     test_plot = plot_ts(df, "testing", start = '2020-03-17', end = '2020-04-17')
     
     assert test_plot.encoding.x.field == 'date_testing', 'x_axis is not mapped correctly'
