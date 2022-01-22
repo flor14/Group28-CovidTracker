@@ -60,7 +60,7 @@ def plot_ts(df, metric, start=None, end=None):
     if start is None:
         start = min(df[date_col])
     else:
-        if type(metric) != str:
+        if type(start) != str:
             raise Exception("The input of the parameter 'start' should be a string")
         else:
             if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', start):
@@ -73,7 +73,7 @@ def plot_ts(df, metric, start=None, end=None):
     if end is None:
         end = max(df[date_col])
     else:
-        if type(metric) != str:
+        if type(end) != str:
             raise Exception("The input of the parameter 'end' should be a string")
         else:
             if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', end):
