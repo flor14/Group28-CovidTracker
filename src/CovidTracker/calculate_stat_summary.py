@@ -10,6 +10,8 @@ def calculate_stat_summary(df, data_type='cases'):
         Pandas DataFrame containing covid data to summary.
     data_type : string, default='cases'
         A string, specifying which kind of data the dataframe contains.
+        the data_type must be in:
+        ['cases', 'mortality', 'recovered', 'testing', 'active', 'dvaccine', 'avaccine', 'cvaccine']
 
     Returns
     -------
