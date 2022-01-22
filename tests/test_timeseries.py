@@ -4,6 +4,8 @@ from pytest import raises
 import pandas as pd
 import pytest
 
+# Generate test data
+df = get_covid_data("testing")
 
 def test_plot_ts():
     """
@@ -14,14 +16,13 @@ def test_plot_ts():
     None
         The test should pass and no asserts should be displayed.
     """
-    # Generate test data
-    df = get_covid_data("testing")
+    
     test_plot = plot_ts(df, "testing", start = '2020-03-17', end = '2020-04-17')
     
-    assert test_plot.encoding.x.field == 'date_testing', 'x_axis is not mapped correctly'
-    assert test_plot.encoding.y.field == 'testing', 'y_axis is not mapped correctly'
-    assert test_plot.mark == 'line', 'mark should be a line'
-    assert test_plot.encoding.x.type == 'temporal', "x-axis has wrong data type"
+    assert test_plot.encoding.x.field,'date_testing'
+    assert test_plot.encoding.y.field, 'testing'
+    assert test_plot.mark, 'line'
+    assert test_plot.encoding.x.type, 'temporal'
     
     
 def test_plot_ts_error():
@@ -33,13 +34,13 @@ def test_plot_ts_error():
     None
         The test should pass and no asserts should be displayed.
     """
-    with pytest.raises(TypeError):
+    with pytest.raises(Exception):
         plot_ts(df = df, metric = 10)  
         
-    with pytest.raises(TypeError):
+    with pytest.raises(Exception):
         plot_ts(df = [1, 2, 3], metric = "testing")
     
-    with pytest.raises(TypeError):
+    with pytest.raises(Exception):
         plot_ts(df = df, metric = "testing", start = 20200201)
     
     with pytest.raises(ValueError):
