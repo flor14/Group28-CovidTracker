@@ -36,6 +36,45 @@ def test_calculate_stat_summary():
     assert 'province' in calculate_stat_summary(input, data_type='mortality').columns
     assert 'cumulative_deaths' in calculate_stat_summary(input, data_type='mortality').columns
     assert 'deaths' in calculate_stat_summary(input, data_type='mortality').columns
+
+    # data_type='recovered'
+    input = get_covid_data(data_type='recovered')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='recovered'), pd.DataFrame)
+
+    # data_type='testing'
+    input = get_covid_data(data_type='testing')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='testing'), pd.DataFrame)
+
+    # data_type='active'
+    input = get_covid_data(data_type='active')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='active'), pd.DataFrame)
+
+    # data_type='dvaccine'
+    input = get_covid_data(data_type='dvaccine')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='dvaccine'), pd.DataFrame)
+
+    # data_type='avaccine'
+    input = get_covid_data(data_type='avaccine')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='avaccine'), pd.DataFrame)
+
+    # data_type='cvaccine'
+    input = get_covid_data(data_type='cvaccine')
+    
+    # Test output type
+    assert isinstance(calculate_stat_summary(input, data_type='cvaccine'), pd.DataFrame)
+
+
+
     
 def test_calculate_stat_summary_errors():
     """Test that calculate_stat_summary() raises the correct errors"""
