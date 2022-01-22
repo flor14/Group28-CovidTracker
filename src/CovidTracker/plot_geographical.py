@@ -46,7 +46,7 @@ def plot_geographical(covid_df,metric):
         raise ValueError("Please choose a different metric with non null values.")
 
     # read in and tidy geodataframe containing Canada geography data
-   with pkg_resources.path(shape_files, 'lpr_000b16a_e.shp') as fp:
+    with pkg_resources.path(shape_files, 'lpr_000b16a_e.shp') as fp:
         map_df = gpd.read_file(fp)[['PRENAME','geometry']]
         
     map_df = gpd.read_file(fp)[['PRENAME','geometry']]
