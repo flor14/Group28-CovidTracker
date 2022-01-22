@@ -9,7 +9,7 @@ The CovidTracker package is designed for the easy retrieval and analysis of data
     Retrieve cleaned and formatted data of specified type and within (optionally) provided time ranges and locations
 
 * #### `plot_time_series()`
-    Function for plotting time series trends in Covid data, including options for trendlines and smoothing
+    Function for plotting time series trends in Covid data
 
 * #### `calculate_stat_summary()`
     Function for returning key statistical information about Covid data, such as long run trends and comparisons between provinces<br>
