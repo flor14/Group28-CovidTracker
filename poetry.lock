@@ -166,6 +166,17 @@ unicode = ["unicodedata2 (>=13.0.0)"]
 woff = ["zopfli (>=0.1.4)", "brotlicffi (>=0.8.0)", "brotli (>=1.0.1)"]
 
 [[package]]
+name = "gdal"
+version = "3.4.1"
+description = "GDAL: Geospatial Data Abstraction Library"
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.extras]
+numpy = ["numpy (>1.0.0)"]
+
+[[package]]
 name = "geopandas"
 version = "0.10.2"
 description = "Geographic pandas extensions"
@@ -508,7 +519,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a2a38e23ffcbc4dc3636601aad9877e2730cb2e0456a83fea570f404eb0063ed"
+content-hash = "7935f35b0aefb511cc53ac9cdaa39a790fcb4df59c0dfa93881ae1d5216b6fd7"
 
 [metadata.files]
 altair = [
@@ -569,6 +580,9 @@ fiona = [
 fonttools = [
     {file = "fonttools-4.28.5-py3-none-any.whl", hash = "sha256:edf251d5d2cc0580d5f72de4621c338d8c66c5f61abb50cf486640f73c8194d5"},
     {file = "fonttools-4.28.5.zip", hash = "sha256:545c05d0f7903a863c2020e07b8f0a57517f2c40d940bded77076397872d14ca"},
+]
+gdal = [
+    {file = "GDAL-3.4.1.tar.gz", hash = "sha256:b19e8143bc2c0d3e222789a465d82b6874236eb78801aec608bf5c8c44d20fcf"},
 ]
 geopandas = [
     {file = "geopandas-0.10.2-py2.py3-none-any.whl", hash = "sha256:1722853464441b603d9be3d35baf8bde43831424a891e82a8545eb8997b65d6c"},
