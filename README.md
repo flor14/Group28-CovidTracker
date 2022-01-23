@@ -29,7 +29,7 @@ There are currently no other Python packages available that can perform the same
 ## Installation
 
 ```bash
-$ pip install CovidTracker
+$ pip install git+https://github.com/UBC-MDS/Group28-CovidTracker
 ```
 
 ## Usage
