@@ -14,8 +14,6 @@ geopandas = "^0.10.2"
 matplotlib = "^3.5.1"
 altair = "^4.2.0"
 Fiona = "^1.8.20"
-GDAL = "^3.4.1"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
