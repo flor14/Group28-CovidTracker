@@ -34,7 +34,17 @@ $ pip install git+https://github.com/UBC-MDS/Group28-CovidTracker
 
 ## Usage
 
-- TODO
+```python
+from CovidTracker.get_covid_data import get_covid_data
+from CovidTracker.plot_geographical import plot_geographical
+from CovidTracker.plot_time_series import plot_ts
+from CovidTracker.calculate_stat_summary import calculate_stat_summary
+
+covid_df = get_covid_data('active')
+plot_map = plot_geographical(covid_df,'cumulative_deaths')
+plot_ts = plot_ts(covid_df, "active_cases")
+summary = calculate_stat_summary(covid_df, 'active')
+```
 
 ## Contributing
 
