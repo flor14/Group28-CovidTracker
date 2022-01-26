@@ -25,10 +25,12 @@ jobs:
     - uses: snok/install-poetry@v1
     # Step 5. Install our package
     - name: Install package
-      run: poetry install
+      run: |
+        poetry install
+        pip install CovidTracker
     # Step 6. Run tests for package
     - name: Test with pytest
-      run: |
+      run: 
         poetry run pytest tests/ --cov=CovidTracker --cov-report=xml
     # Step 7. Use Codecov to track coverage
     - uses: codecov/codecov-action@v2
