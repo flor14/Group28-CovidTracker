@@ -11,67 +11,33 @@ def test_calculate_stat_summary():
     input = get_covid_data()
    
     # Test output type
-    assert isinstance(calculate_stat_summary(input), pd.DataFrame)
+    assert isinstance(calculate_stat_summary(input, 'cases'), pd.DataFrame)
     
     # Test output size
-    assert calculate_stat_summary(input).shape == (14, 7)
+    assert calculate_stat_summary(input, 'cases').shape == (14, 12)
 
     # Test output column names
-    assert 'date_report' in calculate_stat_summary(input).columns
-    assert 'province' in calculate_stat_summary(input).columns
-    assert 'cumulative_cases' in calculate_stat_summary(input).columns
-    assert 'cases' in calculate_stat_summary(input).columns
+    assert 'date_report' in calculate_stat_summary(input, 'cases').columns
+    assert 'province' in calculate_stat_summary(input, 'cases').columns
+    assert 'cumulative_cases' in calculate_stat_summary(input, 'cases').columns
+    assert 'cases' in calculate_stat_summary(input, 'cases').columns
 
     # data_type='mortality'
     input = get_covid_data(data_type='mortality')
     
     # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='mortality'), pd.DataFrame)
+    assert isinstance(calculate_stat_summary(input, 'deaths'), pd.DataFrame)
     
     # Test output size
-    assert calculate_stat_summary(input, data_type='mortality').shape == (14, 7)
+    assert calculate_stat_summary(input, 'deaths').shape == (14, 12)
 
     # Test output column names
-    assert 'date_death_report' in calculate_stat_summary(input, data_type='mortality').columns
-    assert 'province' in calculate_stat_summary(input, data_type='mortality').columns
-    assert 'cumulative_deaths' in calculate_stat_summary(input, data_type='mortality').columns
-    assert 'deaths' in calculate_stat_summary(input, data_type='mortality').columns
+    assert 'date_death_report' in calculate_stat_summary(input, 'deaths').columns
+    assert 'province' in calculate_stat_summary(input, 'deaths').columns
+    assert 'cumulative_deaths' in calculate_stat_summary(input, 'deaths').columns
+    assert 'deaths' in calculate_stat_summary(input, 'deaths').columns
 
-    # data_type='recovered'
-    input = get_covid_data(data_type='recovered')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='recovered'), pd.DataFrame)
 
-    # data_type='testing'
-    input = get_covid_data(data_type='testing')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='testing'), pd.DataFrame)
-
-    # data_type='active'
-    input = get_covid_data(data_type='active')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='active'), pd.DataFrame)
-
-    # data_type='dvaccine'
-    input = get_covid_data(data_type='dvaccine')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='dvaccine'), pd.DataFrame)
-
-    # data_type='avaccine'
-    input = get_covid_data(data_type='avaccine')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='avaccine'), pd.DataFrame)
-
-    # data_type='cvaccine'
-    input = get_covid_data(data_type='cvaccine')
-    
-    # Test output type
-    assert isinstance(calculate_stat_summary(input, data_type='cvaccine'), pd.DataFrame)
 
 
 
@@ -79,13 +45,17 @@ def test_calculate_stat_summary():
 def test_calculate_stat_summary_errors():
     """Test that calculate_stat_summary() raises the correct errors"""
 
-    # Tests that ValueErrors are raised when arguments are of right type but inappropriate value
+    input = get_covid_data()
+    # Tests that TypeErrors are raised when arguments are not the right type
     with pytest.raises(TypeError):
-        calculate_stat_summary('2021-12-31')
-        calculate_stat_summary(100)
-        calculate_stat_summary(pd.DataFrame(columns=["a", "b"]), data_type=1)        
+        calculate_stat_summary('2021-12-31', 'cases')
+        calculate_stat_summary(100, 'death')
+        calculate_stat_summary(input, 2)
+        calculate_stat_summary(input, 'province')
 
+    # Tests that ValueErrors are raised when arguments are value
     with pytest.raises(ValueError):
-        calculate_stat_summary(pd.DataFrame(columns=["a", "b"]))
-        calculate_stat_summary(pd.DataFrame({"a": [1], "b":[2]}))
-        calculate_stat_summary(pd.DataFrame(columns=["a", "b"]), data_type='Newcases')
+        calculate_stat_summary(pd.DataFrame(columns=["a", "b"]), 'cases')
+        calculate_stat_summary(pd.DataFrame({"a": [1], "b":[2]}), 'deaths')
+        calculate_stat_summary(pd.DataFrame(input, 'new'))
+        calculate_stat_summary(pd.DataFrame({"a": [1], "b":[2]}), 'a')
