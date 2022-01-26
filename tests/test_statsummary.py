@@ -37,11 +37,6 @@ def test_calculate_stat_summary():
     assert 'cumulative_deaths' in calculate_stat_summary(input, 'deaths').columns
     assert 'deaths' in calculate_stat_summary(input, 'deaths').columns
 
-
-
-
-
-    
 def test_calculate_stat_summary_errors():
     """Test that calculate_stat_summary() raises the correct errors"""
 
