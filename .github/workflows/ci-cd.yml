@@ -27,11 +27,10 @@ jobs:
     - name: Install package
       run: |
         poetry install
-        pip install CovidTracker
     # Step 6. Run tests for package
     - name: Test with pytest
       run: 
-        pytest tests/ --cov=CovidTracker --cov-report=xml
+        poetry run pytest tests/ --import-mode=append --cov=CovidTracker --cov-report=xml
     # Step 7. Use Codecov to track coverage
     - uses: codecov/codecov-action@v2
       with:
