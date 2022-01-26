@@ -1,1 +1,0 @@
-from CovidTracker import CovidTracker
