@@ -19,7 +19,6 @@ def test_calculate_stat_summary():
     # Test output column names
     assert 'date_report' in calculate_stat_summary(input, 'cases').columns
     assert 'province' in calculate_stat_summary(input, 'cases').columns
-    assert 'cumulative_cases' in calculate_stat_summary(input, 'cases').columns
     assert 'cases' in calculate_stat_summary(input, 'cases').columns
 
     # data_type='mortality'
@@ -34,7 +33,6 @@ def test_calculate_stat_summary():
     # Test output column names
     assert 'date_death_report' in calculate_stat_summary(input, 'deaths').columns
     assert 'province' in calculate_stat_summary(input, 'deaths').columns
-    assert 'cumulative_deaths' in calculate_stat_summary(input, 'deaths').columns
     assert 'deaths' in calculate_stat_summary(input, 'deaths').columns
 
 def test_calculate_stat_summary_errors():
