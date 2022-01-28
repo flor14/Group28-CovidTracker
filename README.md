@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/UBC-MDS/Group28-CovidTracker/branch/master/graph/badge.svg?token=tKi5DL8bCF)](https://codecov.io/gh/UBC-MDS/Group28-CovidTracker)
+
 # CovidTracker
 
 Provides basic data cleaning, wrangling and plotting of Covid tracking data in Canada.
