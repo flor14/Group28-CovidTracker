@@ -1,6 +1,6 @@
 import pandas as pd
 
-def calculate_stat_summary(df, data_type='cases'):
+def calculate_stat_summary(df, column):
     """Creates summary information about the 
        covid cases in each province of Canada
 
@@ -8,10 +8,9 @@ def calculate_stat_summary(df, data_type='cases'):
     ----------
     df : pandas.DataFrame
         Pandas DataFrame containing covid data to summary.
-    data_type : string, default='cases'
-        A string, specifying which kind of data the dataframe contains.
-        the data_type must be in:
-        ['cases', 'mortality', 'recovered', 'testing', 'active', 'dvaccine', 'avaccine', 'cvaccine']
+    column : string
+        column name, specifying which column to summarize.
+        the data type of the column must be numeric.
 
     Returns
     -------
@@ -20,72 +19,74 @@ def calculate_stat_summary(df, data_type='cases'):
 
     Examples
     --------
-    >>> calculate_stat_summary(covid_df, 'active')
-    >>> calculate_stat_summary(covid_df)
+    >>> calculate_stat_summary(covid_df, 'cases')
+    >>> calculate_stat_summary(covid_df, 'cumulative_deaths')
     """
-    # Check data_type validity
-    stat_types = ['cases', 'mortality', 'recovered', 'testing', 'active', 'dvaccine', 'avaccine', 'cvaccine']
-    if not isinstance(data_type, str):
-        raise TypeError("Invalid argument type: data_type must be a string")
-    elif data_type not in stat_types:
-        raise ValueError("Stat type must be within pre-defined options.\
-                        Choose from: ['cases', 'mortality', 'recovered',\
-                        'testing', 'active', 'dvaccine', 'avaccine', 'cvaccine']")
 
-    # Choose the date column and the column to summarize
-    date_col = ''
-    summ_col = ''
-    if data_type == 'cases':
-        date_col = 'date_report'
-        summ_col = 'cases'
-    elif data_type == 'mortality':
-        date_col = 'date_death_report'
-        summ_col = 'deaths'
-    elif data_type == 'recovered':
-        date_col = 'date_recovered'
-        summ_col = 'recovered'
-    elif data_type == 'testing':
-        date_col = 'date_testing'
-        summ_col = 'testing'
-    elif data_type == 'active':
-        date_col = 'date_active'
-        summ_col = 'active_cases'
-    elif data_type == 'dvaccine':
-        date_col = 'date_vaccine_distributed'
-        summ_col = 'dvaccine'
-    elif data_type == 'avaccine':
-        date_col = 'date_vaccine_administered'
-        summ_col = 'avaccine'
-    elif data_type == 'cvaccine':
-        date_col = 'date_vaccine_completed'
-        summ_col = 'cvaccine'
-        
+
     # Check input dataframe validity
     if not isinstance(df, pd.DataFrame):
         raise TypeError("Invalid argument type: df must be a pandas DataFrame")
     elif len(df) == 0:
         raise ValueError("Argument value error: df must contain at least one row of data")
-    elif not ((date_col in df.columns) and ('province' in df.columns)):
-        raise ValueError(f"Argument value error: df must contain {date_col} and province columns")
+    elif not ('province' in df.columns):
+        raise ValueError("Argument value error: df must contain province columns")
+
+    columns = list(df.columns)
+
+    for i in range(len(columns)):
+        if columns[i].startswith('date'):
+            date_col = columns[i]
+            break
+
+    # Check column name validity
+    if not isinstance(column, str):
+        raise TypeError("Invalid argument type: column must be a string")
+    elif column not in columns:
+        raise ValueError("The column name does not exist in the dataframe,\
+                        Choose a valid column name")
+
+    # Check the data type of the column
+    if not (df[column].dtype == 'int64' or df[column].dtype == 'float64'):
+        raise TypeError("Invalid argument type: this column must be numeric")
 
     # Select the up to date information of each province
     df[date_col] = pd.to_datetime(df[date_col], format='%d-%m-%Y')
-    max_date = df.loc[df[date_col].argmax(), date_col]
-    columns = [date_col, 'province'] + list(set(df.columns) - set([date_col, 'province']))
-    summary = df[df[date_col] == max_date][columns].sort_values('province')
+    start_date = df.loc[df[date_col].argmin(), date_col]
+    end_date = df.loc[df[date_col].argmax(), date_col]
+    columns = [date_col, 'province'] + [column]
+    summary = df[df[date_col] == end_date][columns].sort_values('province')
 
     # Summarize the min, max and mean of the selected summary column
     min_value = []
     max_value = []
     mean_value = []
+    std = []
+    count = []
+    percentile_25 = []
+    percentile_50 = []
+    percentile_75 = []
+    
     for i in range(len(summary)):
         province = summary.iloc[i, 1]
-        min_value.append(int(df[df['province'] == province][summ_col].describe()[3]))
-        max_value.append(int(df[df['province'] == province][summ_col].describe()[7]))
-        mean_value.append(int(df[df['province'] == province][summ_col].describe()[1]))
+        summ = df[df['province'] == province][column].describe()
+        min_value.append(int(summ[3]))
+        max_value.append(int(summ[7]))
+        mean_value.append(int(summ[1]))
+        percentile_25.append(int(summ[4]))
+        percentile_50.append(int(summ[5]))
+        percentile_75.append(int(summ[6]))
+        std.append(int(summ[2]))
+        count.append(int(summ[0]))
 
-    summary[summ_col + '_min'] = min_value
-    summary[summ_col + '_max'] = max_value
-    summary[summ_col + '_mean'] = mean_value
-
+    summary['min'] = min_value
+    summary['max'] = max_value
+    summary['mean'] = mean_value
+    summary['25%'] = percentile_25
+    summary['50%'] = percentile_50
+    summary['75%'] = percentile_75
+    summary['std'] = std
+    summary['count'] = count
+    summary['start_date'] = start_date
+    
     return(summary)
